@@ -45,6 +45,7 @@ public class SingUpActivity extends AppCompatActivity {
             }// onClick
         });
 
+
     } //main method
 
     @Override
