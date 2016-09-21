@@ -1,10 +1,14 @@
 package android.sut.androidtest.sutfriend;
 
+import android.content.Intent;
 import android.graphics.drawable.RippleDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 
 public class SingUpActivity extends AppCompatActivity {
 
@@ -12,7 +16,8 @@ public class SingUpActivity extends AppCompatActivity {
     private EditText nameEditText, addressEditText, phoneEditText, userEditText, passwordEditText;
     private String nameString, addressString, phoneString, userString, passwordString, genderString,
     imageString;
-
+    private RadioButton maleRadioButton, femaleRadioButton;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +30,33 @@ public class SingUpActivity extends AppCompatActivity {
         phoneEditText = (EditText) findViewById(R.id.editText4);
         userEditText = (EditText) findViewById(R.id.editText5);
         passwordEditText = (EditText) findViewById(R.id.editText6);
+        maleRadioButton = (RadioButton) findViewById(R.id.radioButton);
+        femaleRadioButton = (RadioButton) findViewById(R.id.radioButton2);
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+        //imageView c0ntroller
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("imge/*");
+                startActivityForResult(Intent.createChooser(intent, "โปรดเลือกรูปภาพ"), 1);
+
+            }// onClick
+        });
 
     } //main method
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 1) && (resultCode == RESULT_OK)) {
+
+            Log.d("SutfrienV1", "Resul ==> success");
+
+        }
+    } // onActivityResult
 
     public void clickSignupSign(View view) {
       // get value from edit text
@@ -44,8 +74,13 @@ public class SingUpActivity extends AppCompatActivity {
                     "มีช่องว่าง","กรุณากรอกทุกช่อง");
             myAlert.myDialog();
 
-        }
+        } else if (!(maleRadioButton.isChecked() || femaleRadioButton.isChecked())) {
+            //Non check
+            MyAlert myAlert = new MyAlert(this, R.drawable.nobita48,
+                    "ยังไม่เลือก Gender", "กรุณาเลือก Gender");
+            myAlert.myDialog();
 
+        }
 
     } // clickSign
 
