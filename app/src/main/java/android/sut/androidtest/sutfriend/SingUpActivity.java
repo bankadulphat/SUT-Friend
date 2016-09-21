@@ -2,6 +2,8 @@ package android.sut.androidtest.sutfriend;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.RippleDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -63,6 +65,18 @@ public class SingUpActivity extends AppCompatActivity {
 
             Uri uri = data.getData();
             imagepathString = myFindPath(uri);
+            Log.d("SutfriedV1", "imgePathSting ==> " + imagepathString);
+
+            //Setup ImageView
+            try {
+
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }// if
     } // onActivityResult
 
@@ -73,9 +87,16 @@ public class SingUpActivity extends AppCompatActivity {
         String[] strings = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
 
-        if () {
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            strResult = cursor.getString(index);
+
         } else {
+            strResult = uri.getPath();
+
         }
+
 
 
         return strResult;
