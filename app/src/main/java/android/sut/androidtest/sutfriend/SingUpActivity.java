@@ -1,7 +1,10 @@
 package android.sut.androidtest.sutfriend;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.RippleDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +18,7 @@ public class SingUpActivity extends AppCompatActivity {
     // explicit ประกาศตัวแปร
     private EditText nameEditText, addressEditText, phoneEditText, userEditText, passwordEditText;
     private String nameString, addressString, phoneString, userString, passwordString, genderString,
-    imageString;
+    imageString, imagepathString, imageNameString;
     private RadioButton maleRadioButton, femaleRadioButton;
     private ImageView imageView;
 
@@ -56,8 +59,28 @@ public class SingUpActivity extends AppCompatActivity {
 
             Log.d("SutfrienV1", "Resul ==> success");
 
-        }
+            //find path
+
+            Uri uri = data.getData();
+            imagepathString = myFindPath(uri);
+        }// if
     } // onActivityResult
+
+    private String myFindPath(Uri uri) {
+
+        String strResult = null;
+
+        String[] strings = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
+
+        if () {
+        } else {
+        }
+
+
+        return strResult;
+    }
+
 
     public void clickSignupSign(View view) {
       // get value from edit text
