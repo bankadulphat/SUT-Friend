@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:text="@string/signup"
         android:id="@+id/button3"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:nestedScrollingEnabled="false"
+        android:onClick="clickSignupSign" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -77,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/editText2"
-                    android:text="Gender"
+                    android:text="Gender:"
                     android:textColor="@color/aText" />
 
                 <RadioGroup
